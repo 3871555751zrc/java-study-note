@@ -1,0 +1,108 @@
+关于java的枚举类的
+什么事枚举类？简单的理解就是类产生的对象是可以列举出来的
+实现枚举类的方式有 两种方式，一种是自己编写代码，另一种是使用关键字enum
+1、第一种方式  我使用的是 自己编写的代码 ，代码如下：
+
+public class TestSeason {
+
+	public static void main(String [] args) {
+		//5.这里的枚举对象是static 类型  所以  可以使用 类.变量名 来调用出来！
+		Season Spring = Season.SPRING;
+		Spring.Show();
+		
+	}
+}//枚举类
+class Season {
+	//1.提供类的属性，private final
+	private final String seasonName;
+	private final String seasonDesc;
+	//2.给一个私有构造器，给属性赋值
+	private Season(String seasonName,String seasonDesc) {
+		this.seasonName = seasonName;
+		this.seasonDesc = seasonDesc;
+	}
+	//3.给出这些对象所 暴露出的方法
+	public String getSeasonName() {
+		return seasonName;
+	}
+	public String getSeasonDesc() {
+		return seasonDesc;
+	}
+	@Override
+	public String toString() {
+		return "Season [seasonName=" + seasonName + ", seasonDesc=" + seasonDesc + "]";
+	}
+    public void Show() {
+    	System.out.println(this.toString());
+    }
+    //4.声明枚举对象的类型是 public final static ,在这里可以初始化，这样就可以生成4个对象，供外部使用！！！
+    //所谓的枚举类就是他提供的对象可以一个个数出来的。
+    public final static Season  SPRING = new Season("Spring","春暖花开");
+    public final static Season  SUMMER = new Season("Summer","夏日炎炎");
+    public final static Season  AUTTUM = new Season("Auttum","秋高气爽");
+    public final static Season  WINTER = new Season("Winter","雨雪爱啊");
+}
+
+
+
+第二种方法是使用enum 关键字做的，代码如下：
+package hh;
+
+public class TestSeason {
+
+	public static void main(String [] args) {
+		Season Spring = Season.SPRING;
+		Spring.show();
+		Season Summer = Season.SUMMER;
+		Summer.show();
+		
+	}
+}//枚举类
+interface Info{
+	void show();
+}
+enum Season implements Info{
+	    SPRING("Spring","春暖花开"){
+	    	public void show() {
+	    		System.out.println("1");
+	    	}
+	    },
+	    SUMMER("Summer","夏日炎炎"){
+	    	public void show() {
+	    		System.out.print("2");
+	    	}
+	    },
+	    AUTTUM("Auttum","秋高气爽"){
+	    	public void show() {
+	    		System.out.print("3");
+	    	}
+	    },
+	    WINTER("Winter","雨雪爱啊"){
+	    	public void show() {
+	    		System.out.print("4");
+	    	}
+	    };
+	private final String seasonName;
+	private final String seasonDesc;
+	
+	private Season(String seasonName,String seasonDesc) {
+		this.seasonName = seasonName;
+		this.seasonDesc = seasonDesc;
+	}
+	
+	public String getSeasonName() {
+		return seasonName;
+	}
+	public String getSeasonDesc() {
+		return seasonDesc;
+	}
+	@Override
+	public String toString() {
+		return "Season [seasonName=" + seasonName + ", seasonDesc=" + seasonDesc + "]";
+	}
+    public void Show() {
+    	System.out.println(this.toString());
+    }
+    
+   
+}
